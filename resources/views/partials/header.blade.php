@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5 fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">JOKES</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,6 +11,9 @@
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{ route('jokes.index') }}">Jokes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ route('jokes.create') }}">Create Jokes</a>
           </li>
         </ul>
       </div>

@@ -15,7 +15,8 @@ class JokeController extends Controller
     public function index()
     {
         $jokes = Joke::all();
-        return view('jokes.index');
+        // dump($jokes);
+        return view('jokes.index', compact('jokes'));
     }
 
     /**
@@ -25,7 +26,7 @@ class JokeController extends Controller
      */
     public function create()
     {
-        //
+        return view('jokes.create');
     }
 
     /**
@@ -36,7 +37,16 @@ class JokeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        // dump($data);
+
+        $new_joke = new Joke();
+
+        $new_joke->fill($data);
+
+        $new_joke->save();
+
+        return redirect()->route('jokes.show', $new_joke->id);
     }
 
     /**
@@ -47,7 +57,14 @@ class JokeController extends Controller
      */
     public function show($id)
     {
-        //
+        $joke = Joke::find($id);
+        // dump($joke); 
+
+        if($joke){
+            return view('jokes.show', compact('joke'));
+        }
+
+        abort(404);
     }
 
     /**
@@ -58,7 +75,10 @@ class JokeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit_joke = Joke::find($id);
+
+        // dump($edit_joke);
+        return view('jokes.edit', compact('edit_joke'));
     }
 
     /**
@@ -70,7 +90,13 @@ class JokeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $sdata = $request->all();
+        dump($sdata);
+
+        $joke = Joke::find($id);
+        $joke->update($sdata);
+
+        return redirect()->route('jokes.show', $joke->id);
     }
 
     /**
@@ -81,6 +107,10 @@ class JokeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $joke = Joke::find($id);
+
+        $joke->delete();
+
+        return redirect()->route('jokes.index')->with('delete', $joke->title);
     }
 }
